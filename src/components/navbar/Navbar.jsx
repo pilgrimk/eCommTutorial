@@ -1,7 +1,10 @@
 import React from 'react'
 import {
-    AppBar, Toolbar, IconButton, Badge,
-    MenuItem, Menu, Typography
+    AppBar, 
+    Toolbar, 
+    IconButton, 
+    Badge,
+    Typography
 } from '@material-ui/core'
 import { ShoppingCart } from '@material-ui/icons'
 import logo from '../../assets/commerce.png'

@@ -10,7 +10,10 @@ const PaymentForm = ({ checkoutToken,
   shippingData,
   nextStep,
   backStep,
+  timeout,
   onCaptureCheckout }) => {
+
+  console.log(checkoutToken);
   
   const handleSubmit = async (event, elements, stripe) => {
     event.preventDefault();
@@ -42,14 +45,13 @@ const PaymentForm = ({ checkoutToken,
         },
         fulfillment: { shipping_method: shippingData.shippingOption },
         payment: {
-          gateway: 'stripe',
-          stripe: {
-            payment_method_id: paymentMethod.id,
-          },
-        },
-      };
+          payment_method_id: paymentMethod.id,
+          gateway: 'gway_nldB0Qp0ExABoE'
+        }
+      }
 
       onCaptureCheckout(checkoutToken.Id, orderData);
+      timeout();
       nextStep();
     }
   };

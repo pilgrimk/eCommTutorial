@@ -16,7 +16,7 @@ import PaymentForm from '../PaymentForm';
 import { commerce } from '../../../lib/Commerce'
 import useStyles from './styles'
 
-const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
+const Checkout = ({ cart, order, onCaptureCheckout, errorMessage }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [checkoutToken, setCheckoutToken] = useState(null);
   const [shippingData, setShippingData] = useState({});
@@ -34,12 +34,15 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
 
         setCheckoutToken(token);
       } catch (error) {
+        console.log(error.data.error.message);
         navigate('/');
       }
     }
 
     generateToken();
-  }, [cart.id, navigate]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const nextStep = () => setActiveStep((previousActiveStep) => previousActiveStep + 1);
   const backStep = () => setActiveStep((previousActiveStep) => previousActiveStep - 1);
@@ -60,18 +63,21 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
       <Button component={Link} variant="outlined" type="button" to="/">Back to home</Button>
     </>
   ) : (
-    <div className={classes.spinner}>
-      <CircularProgress />
-    </div>
+    (!errorMessage) ? (
+      <div className={classes.spinner}>
+        <CircularProgress />
+      </div>
+    ) : (
+      <>
+        <div>
+          <Typography variant="h5">Error: {errorMessage}</Typography>
+          <Divider className={classes.divider} />
+        </div>
+        <br />
+        <Button component={Link} variant="outlined" type="button" to="/">Back to home</Button>
+      </>
+    )
   ));
-
-  if (error) {
-    <>
-      <Typography variant='h5'>Error: {error}</Typography>
-      <br />
-      <Button component={Link} to='/' variant='outlined' type='button'>Back to Home</Button>
-    </>
-  };
 
   const Form = () => (activeStep === 0
     ? <AddressForm checkoutToken={checkoutToken} next={next} />

@@ -49,7 +49,7 @@ const PaymentForm = ({ checkoutToken,
         },
       };
 
-      onCaptureCheckout(checkoutToken.Id, orderData);
+      onCaptureCheckout(checkoutToken.id, orderData);
       nextStep();
     }
   };

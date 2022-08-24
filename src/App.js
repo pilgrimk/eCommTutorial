@@ -45,11 +45,13 @@ const App = () => {
 
   const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
     try {
+      setErrorMessage('');
       const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
       setOrder(incomingOrder);
       refreshCart();
 
     } catch (error) {
+      console.log(`handleCaptureCheckout, error: ${error.data.error.message}`);
       setErrorMessage(error.data.error.message);
     }
   };
@@ -85,7 +87,7 @@ const App = () => {
                 cart={cart}
                 order={order}
                 onCaptureCheckout={handleCaptureCheckout}
-                error={errorMessage} />}>
+                errorMessage={errorMessage} />}>
           </Route>
         </Routes>
       </div>

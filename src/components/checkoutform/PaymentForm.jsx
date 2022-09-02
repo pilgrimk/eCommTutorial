@@ -1,6 +1,6 @@
 import React from 'react'
 import Review from './Review'
-import { Typography, Button, Divider } from '@material-ui/core'
+import { Typography, Button, Divider } from '@mui/material'
 import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 

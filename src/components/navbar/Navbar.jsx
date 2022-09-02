@@ -1,25 +1,26 @@
 import React from 'react'
 import {
-    AppBar, 
-    Toolbar, 
-    IconButton, 
+    AppBar,
+    Toolbar,
+    IconButton,
     Badge,
     Typography
-} from '@material-ui/core'
-import { ShoppingCart } from '@material-ui/icons'
+} from '@mui/material'
+import { ShoppingCart } from '@mui/icons-material'
 import logo from '../../assets/commerce.png'
-import useStyles from './styles'
 import { Link, useLocation } from 'react-router-dom'
 
 const Navbar = ({ totalItems }) => {
-    const classes = useStyles();
     const location = useLocation();
 
     return (
         <>
             <AppBar
-                postition='fixed'
-                className={classes.appBar}
+                postition='sticky'
+                sx={{
+                    boxShadow: 'none',
+                    borderBottom: '1px solid rgba(0, 0, 0, 0.12)'
+                }}
                 color='inherit'
             >
                 <Toolbar>
@@ -27,21 +28,26 @@ const Navbar = ({ totalItems }) => {
                         component={Link}
                         to='/'
                         variant='h6'
-                        className={classes.title}
+                        sx={{
+                            flexGrow: 1,
+                            alignItems: 'center',
+                            display: 'flex',
+                            textDecoration: 'none'
+                        }}
                         color='inherit'
                     >
                         <img
                             src={logo}
                             alt='Commerce.js'
                             height='25px'
-                            className={classes.image}
+                            style={{ marginRight: '10px' }}
                         />
                         eCommerce Site
                     </Typography>
-                    <div className={classes.grow} />
+                    <div style={{flexGrow: 1}}/>
                     {location.pathname === '/' && (
 
-                        <div className={classes.button} >
+                        <div>
                             <IconButton
                                 component={Link}
                                 to='/cart'

@@ -1,8 +1,7 @@
 import React from 'react'
-import { Container, Typography, Button, Grid } from '@material-ui/core'
+import { Container, Typography, Button, Grid } from '@mui/material'
 import CartItem from './cartitem/CartItem'
 import { Link } from 'react-router-dom'
-import useStyles from './styles'
 
 const Cart = ({
     cart,
@@ -10,12 +9,11 @@ const Cart = ({
     handleRemoveFromCart,
     handleEmptyCart
 }) => {
-    const classes = useStyles();
 
     const EmptyCart = () => (
         <Typography variant='subtitle1'>
             You have not items in your cart,
-            <Link to='/' className={classes.link} >start adding some</Link>!
+            <Link to='/' style={{textDecoration: 'none'}}> start adding some</Link>!
         </Typography>
     );
 
@@ -32,13 +30,18 @@ const Cart = ({
                     </Grid>
                 ))}
             </Grid>
-            <div className={classes.cardDetails}>
+            <div style={{
+                display: 'flex',
+                marginTop: '10%',
+                width: '100%',
+                justifyContent: 'space-between'
+            }}>
                 <Typography variant='h4'>
                     Subtotal: {cart.subtotal.formatted_with_symbol}
                 </Typography>
                 <div>
                     <Button
-                        className={classes.emtpyButton}
+                        sx={{minwidth: '150px'}}
                         size='large'
                         type='button'
                         variant='contained'
@@ -50,7 +53,7 @@ const Cart = ({
                     <Button
                         component={Link}
                         to='/checkout'
-                        className={classes.checkoutButton}
+                        sx={{minwidth: '150px'}}
                         size='large'
                         type='button'
                         variant='contained'
@@ -67,9 +70,9 @@ const Cart = ({
 
     return (
         <Container>
-            <div className={classes.toolbar} />
+            <div style={{ marginTop: '80px' }}/>
             <Typography
-                className={classes.title}
+                sx={{ marginTop: '5%' }}
                 variant='h3'
                 gutterBottom
             >

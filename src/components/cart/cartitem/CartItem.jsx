@@ -6,27 +6,30 @@ import {
     CardActions,
     CardContent,
     CardMedia
-} from '@material-ui/core'
-import useStyles from './styles'
+} from '@mui/material'
 
 const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
-    const classes = useStyles();
-
     return (
         <Card>
             <CardMedia
-                className={classes.media}
+                sx={{ height: '260px'}}
                 image={item.image.url}
                 alt={item.name}
             />
-            <CardContent
-                className={classes.cardContent}
-            >
+            <CardContent 
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between'
+                }}
+                >
                 <Typography variant='h4'>{item.name}</Typography>
                 <Typography variant='h5'>{item.line_total.formatted_with_symbol}</Typography>
             </CardContent>
-            <CardActions className={classes.cardActions}>
-                <div className={classes.buttons}>
+            <CardActions sx={{ justifyContent: 'space-between'}}>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center'
+                }}>
                     <Button
                         type='button'
                         size='small'

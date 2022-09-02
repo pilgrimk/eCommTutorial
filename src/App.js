@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { CssBaseline } from '@mui/material'
 import { Navbar, Products, Cart, Checkout } from './components'
 import { commerce } from './lib/Commerce'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
@@ -62,8 +63,9 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <div>
+    <>
+      <CssBaseline />
+      <Router>
         <Navbar totalItems={cart.total_items} />
         <Routes>
           <Route exact path='/'
@@ -90,8 +92,8 @@ const App = () => {
                 errorMessage={errorMessage} />}>
           </Route>
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </>
   )
 }
 

@@ -7,14 +7,12 @@ import {
   Typography,
   Divider,
   Button,
-  CircularProgress,
-  CssBaseline
-} from '@material-ui/core'
+  CircularProgress
+} from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import AddressForm from '../AddressForm';
 import PaymentForm from '../PaymentForm';
 import { commerce } from '../../../lib/Commerce'
-import useStyles from './styles'
 
 const Checkout = ({ cart, order, onCaptureCheckout, errorMessage }) => {
   const [activeStep, setActiveStep] = useState(0);
@@ -22,7 +20,6 @@ const Checkout = ({ cart, order, onCaptureCheckout, errorMessage }) => {
   const [shippingData, setShippingData] = useState({});
   const steps = ['Shipping address', 'Payment details'];
 
-  const classes = useStyles();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,7 +53,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, errorMessage }) => {
     <>
       <div>
         <Typography variant="h5">Thank you for your purchase, {order.customer.firstname} {order.customer.lastname}!</Typography>
-        <Divider className={classes.divider} />
+        <Divider sx={{ margin: '20px 0' }} />
         <Typography variant="subtitle2">Order ref: {order.customer_reference}</Typography>
       </div>
       <br />
@@ -64,14 +61,18 @@ const Checkout = ({ cart, order, onCaptureCheckout, errorMessage }) => {
     </>
   ) : (
     (!errorMessage) ? (
-      <div className={classes.spinner}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
         <CircularProgress />
       </div>
     ) : (
       <>
         <div>
           <Typography variant="h5">Error: {errorMessage}</Typography>
-          <Divider className={classes.divider} />
+          <Divider sx={{ margin: '20px 0' }} />
         </div>
         <br />
         <Button component={Link} variant="outlined" type="button" to="/">Back to home</Button>
@@ -91,12 +92,23 @@ const Checkout = ({ cart, order, onCaptureCheckout, errorMessage }) => {
 
   return (
     <>
-      <CssBaseline />
-      <div className={classes.toolbar} />
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
+      <div style={{ marginTop: '80px' }} />
+      <main sx={{
+        marginTop: '5%',
+        width: 'auto',
+        marginLeft: '8px',
+        marginRight: '8px'
+      }}>
+        <Paper sx={{
+          marginTop: '12px',
+          marginBottom: '12px',
+          padding: '8px'
+        }}>
           <Typography variant='h4' align='center'>Checkout</Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
+          <Stepper 
+          activeStep={activeStep}
+          sx={{ padding: '8px'}}
+          >
             {steps.map((step) => (
               <Step key={step}>
                 <StepLabel>{step}</StepLabel>

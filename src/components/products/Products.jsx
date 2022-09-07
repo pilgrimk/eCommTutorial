@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Grid, Box, Pagination, Divider } from '@mui/material'
 import Product from './product/Product'
 
-const Products = ({ products, onAddToCart }) => {
+const Products = ({ products, onAddToCart, onHandleSetAlert }) => {
     const pageSize = 4;
 
     const [pagination, setPagination] = useState({
@@ -17,7 +17,7 @@ const Products = ({ products, onAddToCart }) => {
         const from = (page - 1) * pageSize;
         const to = (page - 1) * pageSize + pageSize;
 
-        setPagination({...pagination, from: from, to: to});
+        setPagination({ ...pagination, from: from, to: to });
         setCurrentProducts(products.slice(from, to));
     });
 
@@ -46,7 +46,11 @@ const Products = ({ products, onAddToCart }) => {
                         md={4}
                         lg={3}
                     >
-                        <Product product={product} onAddToCart={onAddToCart} />
+                        <Product
+                            product={product}
+                            onAddToCart={onAddToCart}
+                            onHandleSetAlert={onHandleSetAlert}
+                        />
                     </Grid>
                 ))}
             </Grid>

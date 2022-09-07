@@ -10,8 +10,9 @@ const PaymentForm = ({ checkoutToken,
   shippingData,
   nextStep,
   backStep,
-  onCaptureCheckout }) => {
-  
+  onCaptureCheckout,
+  onHandleSetAlert }) => {
+
   const handleSubmit = async (event, elements, stripe) => {
     event.preventDefault();
 
@@ -23,6 +24,7 @@ const PaymentForm = ({ checkoutToken,
 
     if (error) {
       console.log(error);
+      onHandleSetAlert('error', 'Something went wrong');
     } else {
       const orderData = {
         line_items: checkoutToken.line_items,
@@ -40,7 +42,9 @@ const PaymentForm = ({ checkoutToken,
           postal_zip_code: shippingData.zip,
           country: shippingData.shippingCountry
         },
-        fulfillment: { shipping_method: shippingData.shippingOption },
+        fulfillment: {
+          shipping_method: shippingData.shippingOption
+        },
         payment: {
           gateway: 'stripe',
           stripe: {
